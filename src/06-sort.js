@@ -13,7 +13,13 @@ const exampleSongData = require("../data/songs");
  * @param {Object[]} songs - An array of songs. See the song data for more.
  * @returns {Object[]}
  */
-function sortByRuntimeAscending(songs) {}
+function sortByRuntimeAscending(songs) {
+  return songs.sort((songA, songB) => songA.runtimeInSeconds - songB.runtimeInSeconds)
+  //^--Reading Notes->
+  //When we want to sort by something non alphabetical we need to pass sort a callback compare function. 
+  //That compareFunction requires two arguments and will allow sort return an array based on the return value of those compared elements.
+  //if <0 or >0 or neither is where this return will apply
+}
 
 /**
  * Reorders the array so that the song objects are organized by their artist name. The artist that comes last in the alphabet should come first.
@@ -23,7 +29,26 @@ function sortByRuntimeAscending(songs) {}
  * @param {Object[]} songs - An array of songs. See the song data for more.
  * @returns {Object[]}
  */
-function sortByArtistNameDescending(songs) {}
+function sortByArtistNameDescending(songs) {
+  return songs.sort((songA, songB) => {
+    if (songB.artist.toLowerCase() < songA.artist.toLowerCase())
+      return -1
+    //^---(-1) means the first value goes before the second value
+    else
+      if (songA.artist.toLowerCase() > songB.artist.toLowerCase())
+        return 1
+      //^---()1 means it goes after
+      else
+        return 0
+    //^---(0) means they're equivalent
+
+
+
+  })
+  //^----tried with toUpperCase() but didn't pass
+  //remember to go into the correct part of array, went into songs at first then realize i had to go into songs then artist
+  //The sort function uses the comparisons in the function you pass it to sort the function.
+}
 
 /**
  * Reorders the array so that the song objects are organized by their song title. The title that comes first in the alphabet should come first.
@@ -33,7 +58,21 @@ function sortByArtistNameDescending(songs) {}
  * @param {Object[]} songs - An array of songs. See the song data for more.
  * @returns {Object[]}
  */
-function sortBySongTitleAscending(songs) {}
+function sortBySongTitleAscending(songs) {
+  return songs.sort((songA, songB) => {
+    if (songA.title.toLowerCase() < songB.title.toLowerCase())
+      return -1
+    //^---(-1) means the first value goes before the second value
+    else
+      if (songA.title.toLowerCase() > songB.title.toLowerCase())
+        return 1
+      //^---(1) means it goes after
+      else
+        return 0
+    //^---(0) means they're equivalent
+
+  })
+}
 
 module.exports = {
   sortByRuntimeAscending,
